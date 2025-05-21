@@ -36,21 +36,27 @@ const App = () => {
     setMessages([...messages, { text: userMessage, isUser: true }]);
     setInput('');
     setLoading(true);
-
+  
     try {
-      // const res = await fetch('https://example.org/chat', {
-      //   method: "POST",
-      //   body: JSON.stringify({ message: userMessage }),
-      //   headers: {}
-      // });
-      // setMessages(prev => [...prev, { text: res?.data?.reply, isUser: false }]);
-      setMessages(prev => [...prev, { text: `You said: ${userMessage}`, isUser: false }]);
+      const res = await fetch('https://echobot-production-7e4d.up.railway.app/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: userMessage }),
+      });
+  
+      const data = await res.json();
+  
+      setMessages(prev => [...prev, { text: data.reply, isUser: false }]);
     } catch (error) {
+      console.error(error);
       setMessages(prev => [...prev, { text: 'Error contacting server.', isUser: false }]);
     } finally {
       setLoading(false);
     }
   };
+  
 
   const handleKeyPress = e => {
     if (e.key === 'Enter') sendMessage();
