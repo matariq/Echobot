@@ -7,6 +7,10 @@ app = FastAPI()
 class MessagePayload(BaseModel):
     message: str
 
+@app.get("/")
+def read_root():
+    return {"message": "Server is running 🚀"}
+
 # Define the POST endpoint
 @app.post("/chat")
 async def receive_message(payload: MessagePayload):
