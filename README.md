@@ -19,3 +19,25 @@
 git clone https://github.com/your-username/echobot.git
 cd echobot
 
+**FRONTEND**
+cd Frontend
+npm install
+npm run dev
+
+**For Backned**
+cd Backend
+
+# (Optional but recommended)
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Or install manually
+pip install fastapi uvicorn
+
+# Start the server
+uvicorn main:app --reload
+
+
